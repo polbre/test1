@@ -30,7 +30,7 @@ body {
   background-image:
     radial-gradient(circle at 12% 18%, rgba(184,137,59,0.06), transparent 42%),
     radial-gradient(circle at 88% 8%, rgba(158,43,37,0.05), transparent 40%),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='120' height='120' fill='%23f6f1e7'/%3E%3Crect width='120' height='120' fill='%23f6f1e7' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
   line-height: 1.75;
   -webkit-font-smoothing: antialiased;
 }
@@ -221,96 +221,182 @@ section.block { padding: 56px 0; }
   .nav-links a { width: 100%; }
   .hero { padding: 48px 0 40px; }
 }
+
 /* =========================================
-   合作与投稿区域样式 (About Page)
+   合作与投稿区域样式 (About Page) - 美化版
    ========================================= */
+
 .contact-section {
-    max-width: 700px;
-    margin: 50px auto;
-    padding: 40px 30px;
-    background: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-    text-align: center;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 48px 32px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  position: relative;
+}
+
+.contact-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--crimson), var(--gold), var(--jade));
+  border-radius: var(--radius) var(--radius) 0 0;
 }
 
 .contact-section h2 {
-    margin-bottom: 20px;
-    color: #333333;
-    font-size: 26px;
+  font-family: var(--serif);
+  font-size: 28px;
+  margin: 0 0 12px;
+  color: var(--ink);
+  letter-spacing: 1px;
+  font-weight: 700;
 }
 
-.contact-section p {
-    color: #555555;
-    line-height: 1.8;
-    margin-bottom: 20px;
-    font-size: 16px;
+.contact-section > p {
+  color: var(--ink-soft);
+  font-size: 15px;
+  line-height: 1.8;
+  margin: 0 0 32px;
 }
 
+/* 联系方式容器 */
 .contact-info {
-    margin-bottom: 35px;
-    font-size: 16px;
+  background: var(--paper-2);
+  border-radius: 10px;
+  padding: 16px 20px;
+  margin-bottom: 36px;
+  border-left: 4px solid var(--gold);
+}
+
+.contact-info p {
+  margin: 0;
+  font-size: 15px;
+  color: var(--ink);
+}
+
+.contact-info strong {
+  color: var(--ink);
+  font-weight: 600;
 }
 
 .contact-info a {
-    color: #007bff;
-    text-decoration: none;
-    font-weight: 600;
+  color: var(--crimson);
+  font-weight: 600;
+  transition: all 0.2s ease;
+  text-decoration: none;
 }
 
 .contact-info a:hover {
-    text-decoration: underline;
+  color: var(--crimson-soft);
+  text-decoration: underline;
 }
 
-/* 按钮容器 */
+/* 社交按钮容器 */
 .social-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 28px;
 }
 
 /* 按钮基础样式 */
 .btn-social {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 12px 28px;
-    border-radius: 8px;
-    font-weight: 600;
-    font-size: 16px;
-    text-decoration: none;
-    color: #ffffff !important;
-    transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 15px;
+  text-decoration: none;
+  color: #ffffff;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  border: none;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.btn-social::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.2);
+  transition: left 0.3s ease;
+}
+
+.btn-social:hover::before {
+  left: 100%;
 }
 
 /* YouTube 品牌色 */
 .btn-youtube {
-    background-color: #FF0000;
+  background: linear-gradient(135deg, #FF0000 0%, #cc0000 100%);
 }
+
 .btn-youtube:hover {
-    background-color: #cc0000;
-    transform: translateY(-3px);
-    box-shadow: 0 6px 15px rgba(255, 0, 0, 0.25);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(255, 0, 0, 0.3);
+}
+
+.btn-youtube svg {
+  transition: transform 0.3s ease;
+}
+
+.btn-youtube:hover svg {
+  transform: scale(1.15);
 }
 
 /* Bilibili 品牌色 */
 .btn-bilibili {
-    background-color: #00A1D6;
-}
-.btn-bilibili:hover {
-    background-color: #008cc0;
-    transform: translateY(-3px);
-    box-shadow: 0 6px 15px rgba(0, 161, 214, 0.25);
+  background: linear-gradient(135deg, #00A1D6 0%, #0088b3 100%);
 }
 
-/* 适配手机屏幕 */
+.btn-bilibili:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 161, 214, 0.3);
+}
+
+.btn-bilibili svg {
+  transition: transform 0.3s ease;
+}
+
+.btn-bilibili:hover svg {
+  transform: scale(1.15);
+}
+
+/* 响应式设计 */
 @media (max-width: 600px) {
-    .social-buttons {
-        flex-direction: column;
-    }
-    .btn-social {
-        width: 100%;
-    }
+  .contact-section {
+    padding: 40px 24px;
+  }
+
+  .contact-section h2 {
+    font-size: 24px;
+  }
+
+  .social-buttons {
+    gap: 12px;
+    flex-direction: column;
+  }
+
+  .btn-social {
+    width: 100%;
+    padding: 14px 20px;
+  }
+
+  .contact-info {
+    padding: 14px 16px;
+  }
 }
