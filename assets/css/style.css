@@ -221,3 +221,96 @@ section.block { padding: 56px 0; }
   .nav-links a { width: 100%; }
   .hero { padding: 48px 0 40px; }
 }
+/* =========================================
+   合作与投稿区域样式 (About Page)
+   ========================================= */
+.contact-section {
+    max-width: 700px;
+    margin: 50px auto;
+    padding: 40px 30px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    text-align: center;
+}
+
+.contact-section h2 {
+    margin-bottom: 20px;
+    color: #333333;
+    font-size: 26px;
+}
+
+.contact-section p {
+    color: #555555;
+    line-height: 1.8;
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+.contact-info {
+    margin-bottom: 35px;
+    font-size: 16px;
+}
+
+.contact-info a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.contact-info a:hover {
+    text-decoration: underline;
+}
+
+/* 按钮容器 */
+.social-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+/* 按钮基础样式 */
+.btn-social {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 28px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 16px;
+    text-decoration: none;
+    color: #ffffff !important;
+    transition: all 0.3s ease;
+}
+
+/* YouTube 品牌色 */
+.btn-youtube {
+    background-color: #FF0000;
+}
+.btn-youtube:hover {
+    background-color: #cc0000;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(255, 0, 0, 0.25);
+}
+
+/* Bilibili 品牌色 */
+.btn-bilibili {
+    background-color: #00A1D6;
+}
+.btn-bilibili:hover {
+    background-color: #008cc0;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 161, 214, 0.25);
+}
+
+/* 适配手机屏幕 */
+@media (max-width: 600px) {
+    .social-buttons {
+        flex-direction: column;
+    }
+    .btn-social {
+        width: 100%;
+    }
+}
