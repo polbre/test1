@@ -78,28 +78,117 @@ a { color: inherit; text-decoration: none; }
 
 /* ===== Hero ===== */
 .hero {
-  position: relative; padding: 72px 0 56px;
+  position: relative; padding: 72px 56px;
   border-bottom: 1px solid var(--line);
   background:
     linear-gradient(180deg, rgba(255,253,248,0.4), transparent),
     radial-gradient(circle at 80% 0%, rgba(184,137,59,0.10), transparent 55%);
 }
+
 .hero .kicker {
   display: inline-block; font-size: 13px; letter-spacing: 4px; color: var(--crimson);
   border: 1px solid var(--crimson); padding: 5px 14px; border-radius: 999px; margin-bottom: 18px;
 }
+
 .hero h1 {
   font-family: var(--serif); font-size: clamp(38px, 6vw, 64px); line-height: 1.1;
   margin: 0 0 14px; letter-spacing: 2px;
 }
+
 .hero h1 .accent { color: var(--crimson); }
+
 .hero p.lead { font-size: 18px; color: var(--ink-soft); max-width: 640px; margin: 0 0 26px; }
+
 .hero .meta { font-size: 14px; color: var(--muted); }
+
 .hero .meta span { margin-right: 18px; }
 
 .hero-stats { display: flex; gap: 30px; margin-top: 34px; flex-wrap: wrap; }
+
 .hero-stats .stat .n { font-family: var(--serif); font-size: 30px; color: var(--crimson); font-weight: 700; }
+
 .hero-stats .stat .t { font-size: 13px; color: var(--muted); }
+/* ===== 原有基础Hero样式（保留你原来的，不要删） ===== */
+.hero {
+  position: relative; padding: 72px 56px;
+  border-bottom: 1px solid var(--line);
+  background:
+    linear-gradient(180deg, rgba(255,253,248,0.4), transparent),
+    radial-gradient(circle at 80% 0%, rgba(184,137,59,0.10), transparent 55%);
+}
+
+.hero .kicker {
+  display: inline-block; font-size: 13px; letter-spacing: 4px; color: var(--crimson);
+  border: 1px solid var(--crimson); padding: 5px 14px; border-radius: 999px; margin-bottom: 18px;
+}
+
+.hero h1 {
+  font-family: var(--serif); font-size: clamp(38px, 6vw, 64px); line-height: 1.1;
+  margin: 0 0 14px; letter-spacing: 2px;
+}
+
+.hero h1 .accent { color: var(--crimson); }
+
+.hero p.lead { font-size: 18px; color: var(--ink-soft); max-width: 640px; margin: 0 0 26px; }
+
+.hero .meta { font-size: 14px; color: var(--muted); }
+
+.hero .meta span { margin-right: 18px; }
+
+.hero-stats { display: flex; gap: 30px; margin-top: 34px; flex-wrap: wrap; }
+
+.hero-stats .stat .n { font-family: var(--serif); font-size: 30px; color: var(--crimson); font-weight: 700; }
+
+.hero-stats .stat .t { font-size: 13px; color: var(--muted); }
+
+/* ===== 仅首页 hero-home 右侧图片，文字完全靠左不重叠 ===== */
+.hero.hero-home {
+  overflow: hidden;
+  min-height: 620px;
+  position: relative;
+}
+
+/* 右侧图片层 固定右50% */
+.hero.hero-home::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50%;
+  height: 100%;
+  background:
+    linear-gradient(90deg, rgba(255,253,248,0.8), transparent 30%),
+    url("https://images.unsplash.com/photo-1605575647327-3b1165850b04?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.85;
+  z-index: 0;
+}
+
+/* 核心修复：文字区域锁定左侧48%，强制靠左，不会居中偏移 */
+.hero.hero-home .wrap {
+  position: relative;
+  z-index: 2;
+  max-width: 48%;
+  margin-left: 0 !important;
+  margin-right: auto;
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+  .hero.hero-home {
+    min-height: 520px;
+    padding: 40px 24px;
+  }
+  .hero.hero-home::after {
+    width: 100%;
+    opacity: 0.3;
+  }
+  .hero.hero-home .wrap {
+    max-width: 100%;
+  }
+}
 
 /* ===== 通用区块 ===== */
 section.block { padding: 56px 0; }
