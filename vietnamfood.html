@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>越南滋味 · 一路向南</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,500&family=Zhi+Mang+Xing&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f2ead9;
+    --paper-deep:#ece1cb;
+    --ink:#211a14;
+    --ink-soft:#4a4038;
+    --line:rgba(33,26,20,0.14);
+
+    /* 北 North — misty indigo & jade */
+    --bac-a:#2d3f45;
+    --bac-b:#5c7a6e;
+    --bac-tint:44,63,69;
+
+    /* 中 Trung — imperial maroon & gold */
+    --trung-a:#5e1f22;
+    --trung-b:#c69a4d;
+    --trung-tint:94,31,34;
+
+    /* 南 Nam — tropical teal & papaya */
+    --nam-a:#1f5c4e;
+    --nam-b:#e2955e;
+    --nam-tint:31,92,78;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Noto Sans SC","Noto Sans",sans-serif;
+    line-height:1.75;
+    overflow-x:hidden;
+  }
+  ::selection{background:var(--trung-b);color:#fff;}
+
+  h1,h2,h3,.serif{
+    font-family:"Noto Serif SC","Noto Serif",serif;
+  }
+  .viet{
+    font-family:"Cormorant Garamond","Noto Serif SC",serif;
+    font-style:italic;
+    letter-spacing:0.02em;
+  }
+  .brush{
+    font-family:"Zhi Mang Xing",cursive;
+  }
+
+  a{color:inherit;}
+
+  /* ---------- progress spine (desktop) ---------- */
+  .spine{
+    position:fixed;
+    left:28px;
+    top:0;
+    height:100vh;
+    width:56px;
+    z-index:50;
+    display:flex;
+    align-items:center;
+    pointer-events:none;
+  }
+  .spine svg{height:70vh;width:56px;overflow:visible;}
+  .spine-path{
+    fill:none;
+    stroke:var(--ink);
+    stroke-opacity:0.16;
+    stroke-width:2;
+  }
+  .spine-progress{
+    fill:none;
+    stroke:var(--ink);
+    stroke-width:2.4;
+    stroke-dasharray:1000;
+    stroke-dashoffset:1000;
+    transition:stroke 0.6s ease;
+  }
+  .spine-dot{
+    r:5;
+    fill:var(--paper);
+    stroke:var(--ink);
+    stroke-width:2;
+    opacity:0.4;
+    transition:all 0.4s ease;
+  }
+  .spine-dot.active{
+    opacity:1;
+    r:7;
+  }
+  .spine-label{
+    font-family:"Zhi Mang Xing",cursive;
+    font-size:15px;
+    fill:var(--ink);
+    opacity:0.35;
+    transition:opacity 0.4s ease;
+  }
+  .spine-label.active{opacity:1;}
+
+  @media (max-width:960px){ .spine{display:none;} }
+
+  /* ---------- mobile top progress ---------- */
+  .top-progress{
+    position:fixed;top:0;left:0;height:3px;width:100%;
+    background:var(--line);z-index:60;
+  }
+  .top-progress-bar{
+    height:100%;width:0%;background:var(--ink);
+    transition:background 0.6s ease;
+  }
+  @media (min-width:961px){ .top-progress{display:none;} }
+
+  .wrap{max-width:1180px;margin:0 auto;padding:0 32px;}
+  @media (min-width:961px){ .wrap{padding-left:120px;} }
+
+  /* ---------- hero ---------- */
+  .hero{
+    position:relative;
+    min-height:100vh;
+    display:flex;
+    align-items:flex-end;
+    background:#101614;
+    overflow:hidden;
+  }
+  .hero-img{
+    position:absolute;inset:0;
+    background-image:url('https://images.unsplash.com/photo-1643029891412-92f9a81a8c16?w=2000&q=80&auto=format&fit=crop');
+    background-size:cover;background-position:center 60%;
+  }
+  .hero-scrim{
+    position:absolute;inset:0;
+    background:linear-gradient(180deg, rgba(16,22,20,0.15) 0%, rgba(16,22,20,0.35) 55%, rgba(16,22,20,0.92) 100%);
+  }
+  .hero-content{
+    position:relative;z-index:2;
+    color:#f2ead9;
+    padding:0 32px 8vh;
+    width:100%;
+  }
+  @media (min-width:961px){ .hero-content{padding-left:120px;} }
+  .hero-eyebrow{
+    font-family:"Zhi Mang Xing",cursive;
+    font-size:22px;
+    opacity:0.85;
+    margin-bottom:10px;
+    letter-spacing:0.08em;
+  }
+  .hero h1{
+    font-size:clamp(2.6rem, 7vw, 5.4rem);
+    font-weight:900;
+    line-height:1.15;
+    margin-bottom:18px;
+  }
+  .hero h1 em{
+    font-style:normal;
+    color:#e2955e;
+  }
+  .hero p{
+    max-width:520px;
+    font-size:1.05rem;
+    color:#e7dfce;
+    font-weight:300;
+  }
+  .hero-map{
+    position:absolute;right:6%;top:12%;
+    height:66%;
+    opacity:0.5;
+    z-index:1;
+  }
+  @media (max-width:700px){ .hero-map{display:none;} }
+
+  /* ---------- intro ---------- */
+  .intro{
+    padding:9vh 0 7vh;
+  }
+  .intro-lede{
+    font-size:clamp(1.15rem,2.4vw,1.5rem);
+    font-weight:400;
+    max-width:700px;
+    color:var(--ink-soft);
+  }
+  .intro-lede .brush{font-size:1.3em;color:var(--trung-a);}
+
+  /* ---------- divider (brush stroke) ---------- */
+  .divider{
+    width:100%;
+    padding:5vh 0;
+    display:flex;
+    justify-content:center;
+  }
+  .divider svg{width:220px;height:26px;opacity:0.5;}
+
+  /* ---------- region sections ---------- */
+  .region{
+    position:relative;
+    padding:10vh 0 12vh;
+    transition:background-color 0.8s ease;
+  }
+  .region-head{
+    display:flex;
+    align-items:baseline;
+    gap:28px;
+    margin-bottom:2.2rem;
+    flex-wrap:wrap;
+  }
+  .region-glyph{
+    font-family:"Zhi Mang Xing",cursive;
+    font-size:clamp(4rem,9vw,7rem);
+    line-height:1;
+    color:var(--r-a);
+  }
+  .region-titles .eyebrow{
+    font-size:0.92rem;
+    letter-spacing:0.22em;
+    text-transform:uppercase;
+    color:var(--r-b);
+    font-weight:500;
+    margin-bottom:6px;
+  }
+  .region-titles h2{
+    font-size:clamp(1.7rem,3.4vw,2.5rem);
+    font-weight:700;
+    color:var(--ink);
+  }
+  .region-titles .viet{
+    display:block;
+    font-size:1.15rem;
+    color:var(--ink-soft);
+    margin-top:4px;
+  }
+
+  .region-body{
+    display:grid;
+    grid-template-columns:1.05fr 1fr;
+    gap:5vw;
+    align-items:start;
+    margin-bottom:5vh;
+  }
+  @media (max-width:900px){ .region-body{grid-template-columns:1fr;} }
+
+  .region-photo{
+    position:relative;
+    border-radius:2px;
+    overflow:hidden;
+    aspect-ratio:4/5;
+  }
+  .region-photo img{
+    width:100%;height:100%;object-fit:cover;display:block;
+  }
+  .region-photo::before{
+    content:'';
+    position:absolute;inset:0;
+    background:linear-gradient(200deg, rgba(0,0,0,0) 40%, rgba(0,0,0,0.35) 100%);
+    z-index:2;
+  }
+  .region-photo-cap{
+    position:absolute;bottom:14px;left:16px;z-index:3;
+    color:#f4efe2;font-size:0.82rem;letter-spacing:0.04em;
+    font-weight:300;
+  }
+
+  .region-text p{
+    color:var(--ink-soft);
+    font-size:1.02rem;
+    margin-bottom:1.1rem;
+  }
+  .region-text .lead-word{
+    font-family:"Zhi Mang Xing",cursive;
+    font-size:1.4em;
+    color:var(--r-a);
+  }
+
+  /* dish cards */
+  .dish-row{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:18px;
+  }
+  @media (max-width:900px){ .dish-row{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:520px){ .dish-row{grid-template-columns:1fr;} }
+
+  .dish-card{
+    background:rgba(255,255,255,0.35);
+    border:1px solid var(--line);
+    border-radius:2px;
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+  }
+  .dish-photo{
+    aspect-ratio:5/4;
+    position:relative;
+    overflow:hidden;
+  }
+  .dish-photo img{
+    width:100%;height:100%;object-fit:cover;
+    transition:transform 0.6s ease;
+  }
+  .dish-card:hover .dish-photo img{transform:scale(1.05);}
+  .dish-num{
+    position:absolute;top:10px;left:10px;z-index:2;
+    color:#fff;font-family:"Zhi Mang Xing",cursive;font-size:1.4rem;
+    text-shadow:0 1px 4px rgba(0,0,0,0.5);
+  }
+  .dish-info{padding:14px 16px 18px;}
+  .dish-info .vname{
+    font-size:1.05rem;
+    color:var(--r-a);
+    display:block;
+    margin-bottom:2px;
+  }
+  .dish-info .cname{
+    font-family:"Noto Serif SC",serif;
+    font-weight:700;
+    font-size:1.02rem;
+    margin-bottom:8px;
+    display:block;
+  }
+  .dish-info p{
+    font-size:0.86rem;
+    color:var(--ink-soft);
+    line-height:1.6;
+  }
+
+  /* ---------- closing ---------- */
+  .closing{
+    padding:12vh 0 14vh;
+    text-align:center;
+  }
+  .closing .brush{
+    font-size:clamp(2.2rem,5vw,3.2rem);
+    display:block;
+    margin-bottom:1.2rem;
+    color:var(--trung-a);
+  }
+  .closing p{
+    max-width:560px;
+    margin:0 auto;
+    color:var(--ink-soft);
+    font-size:1.02rem;
+  }
+  .closing .signoff{
+    margin-top:2.4rem;
+    font-size:0.85rem;
+    letter-spacing:0.1em;
+    color:var(--ink-soft);
+    opacity:0.6;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{transition:none !important;}
+  }
+</style>
+</head>
+<body>
+
+<div class="top-progress"><div class="top-progress-bar" id="topBar"></div></div>
+
+<div class="spine" aria-hidden="true">
+  <svg viewBox="0 0 56 700" id="spineSvg">
+    <path class="spine-path" id="spinePath" d="M28,10 C10,90 46,170 28,250 C10,330 46,410 28,490 C10,570 46,630 28,690"/>
+    <path class="spine-progress" id="spineProgress" d="M28,10 C10,90 46,170 28,250 C10,330 46,410 28,490 C10,570 46,630 28,690"/>
+    <g id="dotBac"><circle class="spine-dot" cx="28" cy="90"></circle><text class="spine-label" x="40" y="95">北</text></g>
+    <g id="dotTrung"><circle class="spine-dot" cx="28" cy="350"></circle><text class="spine-label" x="40" y="355">中</text></g>
+    <g id="dotNam"><circle class="spine-dot" cx="28" cy="610"></circle><text class="spine-label" x="40" y="615">南</text></g>
+  </svg>
+</div>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-img"></div>
+  <div class="hero-scrim"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">下龙湾 · 越南的起点</div>
+    <h1>越南滋味<br><em>一路向南</em></h1>
+    <p>从河内的晨雾，到顺化的皇城辛香，再到湄公河的甜润日光 —— 一个国家，三种截然不同的餐桌。</p>
+  </div>
+</header>
+
+<main>
+
+  <!-- INTRO -->
+  <section class="intro">
+    <div class="wrap">
+      <p class="intro-lede">
+        越南地形狭长如一条<span class="brush">S</span>形海岸线，气候、历史与移民路径在南北之间划出清晰的味觉分界。
+        北方清淡本味，中部辛香浓烈，南方甜润丰饶 —— 这不是三份菜单，而是三段风土的记忆。
+      </p>
+    </div>
+  </section>
+
+  <div class="divider"><svg viewBox="0 0 220 26"><path d="M4,13 C40,2 60,24 100,13 C140,2 160,24 216,13" stroke="#211a14" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg></div>
+
+  <!-- 北 NORTH -->
+  <section class="region" id="bac" style="--r-a:var(--bac-a); --r-b:var(--bac-b); background:linear-gradient(180deg, var(--paper) 0%, rgba(44,63,69,0.06) 100%);">
+    <div class="wrap">
+      <div class="region-head">
+        <div class="region-glyph">北</div>
+        <div class="region-titles">
+          <div class="eyebrow">Miền Bắc · 河内与红河三角洲</div>
+          <h2>清雅本味<span class="viet">Miền Bắc</span></h2>
+        </div>
+      </div>
+
+      <div class="region-body">
+        <div class="region-photo">
+          <img src="https://images.unsplash.com/photo-1613131145282-9476375618e1?w=1200&q=80&auto=format&fit=crop" alt="河内老城街景">
+          <div class="region-photo-cap">河内 · 三十六行街</div>
+        </div>
+        <div class="region-text">
+          <p><span class="lead-word">北</span>方是越南饮食的源头。红河三角洲的稻米与温带气候，造就了这里清澈、克制、讲究本味的味觉哲学 —— 少辣少甜，重在汤底的层次与香料的分寸。</p>
+          <p>河内人常说"吃要精致，穿要体面"。一碗河粉里，牛骨要熬足数小时，八角、桂皮、烤姜的香气需若隐若现，绝不喧宾夺主。这是一种属于文人气质的克制美学。</p>
+          <p>历经法国殖民与物资匮乏的年代，北方人也发展出了自己的变通智慧 —— 譬如没有鲜奶时，用蛋黄打出绵密奶泡的"蛋咖啡"。</p>
+        </div>
+      </div>
+
+      <div class="dish-row">
+        <div class="dish-card">
+          <div class="dish-photo"><span class="dish-num">一</span><img src="https://images.unsplash.com/photo-1631709497146-a239ef373cf1?w=700&q=80&auto=format&fit=crop" alt="河内牛肉粉"></div>
+          <div class="dish-info"><span class="vname viet">Phở Bò</span><span class="cname">河内牛肉粉</span><p>清澈牛骨高汤，配薄切生牛肉与米粉，是越南最广为人知的"国民早餐"。</p></div>
+        </div>
+        <div class="dish-card">
+          <div class="dish-photo"><span class="dish-num">二</span><img src="https://images.unsplash.com/photo-1641440615059-42c8ed3af8c8?w=700&q=80&auto=format&fit=crop" alt="烤肉米线"></div>
+          <div class="dish-info"><span class="vname viet">Bún chả</span><span class="cname">炭烤肉米线</span><p>炭火烤猪肉饼配冷米线与酸甜鱼露汁，曾因奥巴马河内街边用餐而闻名世界。</p></div>
+        </div>
+        <div class="dish-card">
+          <div class="dish-photo"><span class="dish-num">三</span><img src="https://images.unsplash.com/photo-1582878826629-29b7ad1cdc43?w=700&q=80&auto=format&fit=crop" alt="米浆卷"></div>
+          <div class="dish-info"><span class="vname viet">Bánh cuốn</span><span class="cname">米浆薄卷</span><p>米浆蒸制成薄如蝉翼的卷皮，内裹肉末与木耳，蘸鱼露食用，口感滑嫩。</p></div>
+        </div>
+        <div class="dish-card">
+          <div class="dish-photo"><span class="dish-num">四</span><img src="https://images.unsplash.com/photo-1622087250339-9295c9ef442b?w=700&q=80&auto=format&fit=crop" alt="蛋咖啡"></div>
+          <div class="dish-info"><span class="vname viet">Cà phê trứng</span><span class="cname">河内蛋咖啡</span><p>蛋黄与炼乳打发成绵密奶泡覆于浓咖啡上，是物资匮乏年代留下的甜蜜发明。</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"><svg viewBox="0 0 220 26"><path d="M4,13 C40,2 60,24 100,13 C140,2 160,24 216,13" stroke="#211a14" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg></div>
+
+  <!-- 中 CENTRAL -->
+  <section class="region" id="trung" style="--r-a:var(--trung-a); --r-b:var(--trung-b); background:linear-gradient(180deg, rgba(198,154,77,0.08) 0%, rgba(94,31,34,0.07) 100%);">
+    <div class="wrap">
+      <div class="region-head">
+        <div class="region-glyph">中</div>
+        <div class="region-titles">
+          <div class="eyebrow">Miền Trung · 顺化与会安</div>
+          <h2>皇城辛香<span class="viet">Miền Trung</span></h2>
+        </div>
+      </div>
+
+      <div class="region-body">
+        <div class="region-photo">
+          <img src="https://images.unsplash.com/photo-1639458110591-17c4cede0c4b?w=1200&q=80&auto=format&fit=crop" alt="会安灯笼夜色">
+          <div class="region-photo-cap">会安 · 灯笼古镇</div>
+        </div>
+        <div class="region-text">
+          <p><span class="lead-word">中</span>部曾是阮朝皇城顺化的所在地，宫廷饮食讲究"色、香、味、器"俱全，一道菜可以拆解为数种精巧小食，装盘如工笔画般细致。</p>
+          <p>狭长的中部土地贫瘠、台风频繁，也因此造就了浓烈厚重的辛香口味 —— 辣椒、虾酱、柠檬草是这里绕不开的味觉记忆，几乎每道菜都有专属的蘸料。</p>
+          <p>会安古镇作为昔日的国际商港，又融入了日本、中国商人的饮食印记，形成了独一无二、只此一地才能复刻的味道，比如必须用古井水制作的高楼面。</p>
+        </div>
+      </div>
+
+      <div class="dish-row">
+        <div class="dish-card">
+          <div class="dish-photo"><span class="dish-num">一</span><img src="https://images.unsplash.com/photo-1555126634-323283e090fa?w=700&q=80&auto=format&fit=crop" alt="顺化牛肉粉"></div>
+          <div class="dish-info"><span class="vname viet">Bún bò Huế</span><span class="cname">顺化辣牛肉粉</span><p>以柠檬草与虾酱调味的浓烈红油汤底，搭配粗米线与蟹肉丸，辣香扑鼻。</p></div>
+        </div>
+        <div class="dish-card">
+          <div class="dish-photo"><span class="dish-num">二</span><img src="https://images.unsplash.com/photo-1583316175701-0bc5f25a0a44?w=700&q=80&auto=format&fit=crop" alt="广南面"></div>
+          <div class="dish-info"><span class="vname viet">Mì Quảng</span><span class="cname">广南姜黄面</span><p>姜黄面条配虾肉与花生碎，只用少量浓汤汁拌食，口感层次丰富。</p></div>
+        </div>
+        <div class="dish-card">
+          <div class="dish-photo"><span class="dish-num">三</span><img src="https://images.unsplash.com/photo-1583316175701-0bc5f25a0a44?w=700&q=80&auto=format&fit=crop" alt="会安高楼面"></div>
+          <div class="dish-info"><span class="vname viet">Cao lầu</span><span class="cname">会安高楼面</span><p>相传须用当地古井水制作的粗面，配叉烧与炸脆面块，是会安限定风味。</p></div>
+        </div>
+        <div class="dish-card">
+          <div class="dish-photo"><span class="dish-num">四</span><img src="https://images.unsplash.com/photo-1562565652-a0d8f0c59eb4?w=700&q=80&auto=format&fit=crop" alt="顺化宫廷小食"></div>
+          <div class="dish-info"><span class="vname viet">Bánh khoái</span><span class="cname">顺化脆煎饼</span><p>米浆煎至金黄酥脆，包裹豆芽与虾肉，配特制花生芝麻酱食用。</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"><svg viewBox="0 0 220 26"><path d="M4,13 C40,2 60,24 100,13 C140,2 160,24 216,13" stroke="#211a14" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg></div>
+
+  <!-- 南 SOUTH -->
+  <section class="region" id="nam" style="--r-a:var(--nam-a); --r-b:var(--nam-b); background:linear-gradient(180deg, rgba(31,92,78,0.07) 0%, var(--paper) 100%);">
+    <div class="wrap">
+      <div class="region-head">
+        <div class="region-glyph">南</div>
+        <div class="region-titles">
+          <div class="eyebrow">Miền Nam · 西贡与湄公河三角洲</div>
+          <h2>甜润丰饶<span class="viet">Miền Nam</span></h2>
+        </div>
+      </div>
+
+      <div class="region-body">
+        <div class="region-photo">
+          <img src="https://images.unsplash.com/photo-1543411789-1a67a2ac05c6?w=1200&q=80&auto=format&fit=crop" alt="湄公河水上市场">
+          <div class="region-photo-cap">湄公河三角洲 · 水上市场</div>
+        </div>
+        <div class="region-text">
+          <p><span class="lead-word">南</span>方是越南的粮仓与果园。湄公河三角洲水系纵横，物产丰饶，饮食也随之变得松弛、甜润、不设边界 —— 糖、椰奶与新鲜香草是这里的味觉底色。</p>
+          <p>作为昔日法属交趾支那与柬埔寨、潮汕移民的交汇地，西贡的餐桌天生带着混血气质：法式长棍配上越式冷肉，潮州河粉演变出本地风味的河粉。</p>
+          <p>这里的人吃饭讲求"随性"—— 一碗饭配一份烤肉，一锅酸甜鱼汤，几片新鲜生菜，随手一拼便是家常滋味。</p>
+        </div>
+      </div>
+
+      <div class="dish-row">
+        <div class="dish-card">
+          <div class="dish-photo"><span class="dish-num">一</span><img src="https://images.unsplash.com/photo-1597345637412-9fd611e758f3?w=700&q=80&auto=format&fit=crop" alt="碎米饭"></div>
+          <div class="dish-info"><span class="vname viet">Cơm tấm</span><span class="cname">西贡碎米饭</span><p>用碾碎的陈米蒸煮，搭配炭烤猪排、煎蛋与鱼露汁，是西贡最家常的一餐。</p></div>
+        </div>
+        <div class="dish-card">
+          <div class="dish-photo"><span class="dish-num">二</span><img src="https://images.unsplash.com/photo-1509072619873-adb3dc289b50?w=700&q=80&auto=format&fit=crop" alt="南部河粉"></div>
+          <div class="dish-info"><span class="vname viet">Hủ tiếu</span><span class="cname">南式河粉</span><p>融合潮汕与柬埔寨风味的汤河粉，汤底偏甜，常加虾、猪肝与豆芽。</p></div>
+        </div>
+        <div class="dish-card">
+          <div class="dish-photo"><span class="dish-num">三</span><img src="https://images.unsplash.com/photo-1600454309261-3dc9b7597637?w=700&q=80&auto=format&fit=crop" alt="越式煎饼"></div>
+          <div class="dish-info"><span class="vname viet">Bánh xèo</span><span class="cname">越式黄金煎饼</span><p>椰奶与姜黄调制的米浆煎至金黄脆边，包入生菜香草卷食，清爽不腻。</p></div>
+        </div>
+        <div class="dish-card">
+          <div class="dish-photo"><span class="dish-num">四</span><img src="https://images.unsplash.com/photo-1595960894718-9ceb90c0df68?w=700&q=80&auto=format&fit=crop" alt="湄公河渔获"></div>
+          <div class="dish-info"><span class="vname viet">Canh chua</span><span class="cname">酸甜鱼汤</span><p>罗望子提供酸味，菠萝与糖调出回甘，是湄公河三角洲最具代表性的家常汤品。</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLOSING -->
+  <section class="closing">
+    <div class="wrap">
+      <span class="brush">北中南 · 一碗一味</span>
+      <p>三段海岸线，三种气候，三份记忆。越南的餐桌从不追求统一的标准答案 —— 它更像一封写给风土的长信，落笔于北方的克制，转折于中部的浓烈，收尾于南方的松弛与甜润。</p>
+      <div class="signoff">河内小天 · 安南风俗志</div>
+    </div>
+  </section>
+
+</main>
+
+<script>
+(function(){
+  const regions = ['bac','trung','nam'];
+  const colors = {
+    bac:  getComputedStyle(document.documentElement).getPropertyValue('--bac-a').trim(),
+    trung:getComputedStyle(document.documentElement).getPropertyValue('--trung-a').trim(),
+    nam:  getComputedStyle(document.documentElement).getPropertyValue('--nam-a').trim()
+  };
+  const dots = {
+    bac: document.querySelector('#dotBac .spine-dot'),
+    trung: document.querySelector('#dotTrung .spine-dot'),
+    nam: document.querySelector('#dotNam .spine-dot')
+  };
+  const labels = {
+    bac: document.querySelector('#dotBac .spine-label'),
+    trung: document.querySelector('#dotTrung .spine-label'),
+    nam: document.querySelector('#dotNam .spine-label')
+  };
+  const spineProgress = document.getElementById('spineProgress');
+  const topBar = document.getElementById('topBar');
+
+  const sections = regions.map(id => document.getElementById(id));
+
+  function setActive(id){
+    regions.forEach(r=>{
+      dots[r].classList.toggle('active', r===id);
+      labels[r].classList.toggle('active', r===id);
+    });
+    const c = colors[id];
+    if(spineProgress) spineProgress.style.stroke = c;
+    if(topBar) topBar.style.background = c;
+  }
+
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        setActive(entry.target.id);
+      }
+    });
+  }, { rootMargin: '-45% 0px -45% 0px', threshold: 0 });
+
+  sections.forEach(s => s && io.observe(s));
+
+  const pathLen = spineProgress ? spineProgress.getTotalLength() : 0;
+  if(spineProgress){
+    spineProgress.style.strokeDasharray = pathLen;
+    spineProgress.style.strokeDashoffset = pathLen;
+  }
+
+  function onScroll(){
+    const doc = document.documentElement;
+    const scrollTop = doc.scrollTop || document.body.scrollTop;
+    const scrollHeight = doc.scrollHeight - doc.clientHeight;
+    const pct = scrollHeight > 0 ? scrollTop/scrollHeight : 0;
+
+    if(spineProgress){
+      spineProgress.style.strokeDashoffset = pathLen - (pathLen*pct);
+    }
+    if(topBar){
+      topBar.style.width = (pct*100)+'%';
+    }
+  }
+  document.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+})();
+</script>
+
+</body>
+</html>
